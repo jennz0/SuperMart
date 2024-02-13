@@ -1,4 +1,32 @@
-<router-outlet />
-<h1>{{title}}</h1>
-<app-products></app-products>
-<app-messages></app-messages>
+<div *ngIf="authService.isAuthenticated(); else loginOrSignup">
+    <h1>{{title}}</h1>
+    <nav>
+      <a routerLink="/products">Products</a>
+      <a routerLink="/dashboard">Dashboard</a>
+    </nav>
+    <router-outlet></router-outlet>
+    <app-messages></app-messages>
+  </div>
+  
+<ng-template #loginOrSignup>
+    <app-login></app-login>
+    
+    <!-- <nav>
+        <a routerLink="/signup">Signup</a>
+    </nav> -->
+    <!-- <app-registration></app-registration> -->
+</ng-template>
+  
+
+<!-- <h1>{{title}}</h1>
+<nav>
+    <a routerLink="/products">Products</a>
+    <a routerLink="/dashboard">Dashboard</a>
+
+</nav>
+
+<router-outlet /> -->
+
+<!-- <app-cart></app-cart> -->
+<!-- <app-products></app-products> -->
+<!-- <app-messages></app-messages> -->
