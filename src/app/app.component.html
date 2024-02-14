@@ -1,11 +1,13 @@
 <div *ngIf="authService.isAuthenticated(); else loginOrSignup">
     <h1>{{title}}</h1>
+    <p>Hello {{current_user}}</p>
     <nav>
       <a routerLink="/products">Products</a>
       <a routerLink="/dashboard">Dashboard</a>
+      <a routerLink="/watchlist">Watchlist</a>
     </nav>
     <router-outlet></router-outlet>
-    <app-messages></app-messages>
+    <!-- <app-messages></app-messages> -->
   </div>
   
 <ng-template #loginOrSignup>

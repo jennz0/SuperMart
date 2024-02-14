@@ -1,4 +1,23 @@
 <h2>All Products</h2>
+<button *ngIf="userIsAdmin" (click)="addProduct()">Add Product</button>
+
+<div *ngIf="showAddForm">
+  <h3>Add New Product</h3>
+  <form (ngSubmit)="onSubmit()">
+    <label>Name: </label>
+    <input type="text" [(ngModel)]="newProduct.name" name="name" required><br>
+    <label>Description: </label>
+    <input type="text" [(ngModel)]="newProduct.description" name="description"><br>
+    <label>Retail Price: </label>
+    <input type="number" [(ngModel)]="newProduct.retail_price" name="retail_price" required><br>
+    <label>Wholesale Price: </label>
+    <input type="number" [(ngModel)]="newProduct.wholesale_price" name="wholesale_price" required><br>
+    <label>Quantity: </label>
+    <input type="number" [(ngModel)]="newProduct.quantity" name="quantity" required><br>
+    <button type="submit">Submit</button>
+  </form>
+</div>
+
 <ul class="products">
   <li *ngFor="let product of products">
     <!-- <button type="button" [class.selected]="product === selectedProduct" (click)="onSelect(product)"> -->

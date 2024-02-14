@@ -5,6 +5,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { LoginComponent } from './login/login.component';
+import { WatchlistComponent } from './watchlist/watchlist.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -13,6 +14,7 @@ const routes: Routes = [
   { path: 'products', component: ProductsComponent },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'detail/:id', component: ProductDetailComponent },
+  { path: 'watchlist', component: WatchlistComponent }
 
   
 ];

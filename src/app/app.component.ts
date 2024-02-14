@@ -9,11 +9,14 @@ import { Router } from '@angular/router';
 })
 export class AppComponent {
   title = 'SuperMart';
+  current_user = '';
 
   constructor(public authService: AuthService,  private router: Router) {}
 
   goToRegistration() {
     this.router.navigateByUrl('/signup');
   }
+
+
 
 }
