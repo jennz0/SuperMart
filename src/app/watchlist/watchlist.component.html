@@ -1,9 +1,30 @@
-<h2>Watchlist</h2>
-
+<!-- <h2>Watchlist</h2>
+<div>{{watchlist | json}}</div>
 <ul>
   <li *ngFor="let product of watchlist">
     {{ product.user }} - {{ product.product }}
   </li>
 </ul>
 
-<button (click)="placeOrder()" >Place Order</button>
+<button (click)="placeOrder()" >Place Order</button> -->
+
+<h2>Watchlist</h2>
+
+<h4 *ngIf="watchlistProducts.length == 0; else elseBlock">Watchlist is empty</h4>
+
+<ng-template #elseBlock>
+    <ul class="products" >
+        <li *ngFor="let product of watchlistProducts">
+            <a routerLink="/detail/{{product.id}}">
+              <div>
+                <span>Name: </span>{{ product.name }}
+              </div>
+              <div>
+                <span>Description: </span>{{ product.description }}
+              </div>
+            </a>
+        </li>
+      </ul>
+    <button type="button" (click)="placeOrder()">Place Order</button>
+</ng-template>
+

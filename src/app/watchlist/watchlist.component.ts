@@ -10,6 +10,8 @@ import { Watchlist } from './watchlist';
 })
 export class WatchlistComponent {
   watchlist: Watchlist[] = [];
+  watchlistProducts: Product[] = [];
+
 
   constructor(private productService: ProductService) { }
 
@@ -18,9 +20,25 @@ export class WatchlistComponent {
   }
 
   getWatchlist(): void {
-    // Assuming you have a method in ProductService to retrieve watchlist
-    this.productService.getWatchlist().subscribe(watchlist_returned_from_service => {this.watchlist = watchlist_returned_from_service;});
-    console.log(this.watchlist);
+    this.productService.getWatchlist().subscribe(
+      watchlist => {
+        this.watchlist = watchlist;
+        for (const item of this.watchlist) {
+          this.productService.getProduct(item.product).subscribe(
+            product => {
+              this.watchlistProducts.push(product[0]);
+              console.log("Watchlist items:", this.watchlistProducts); // Logging here
+            },
+            error => {
+              console.error('Error fetching product:', error);
+            }
+          );
+        }
+      },
+      error => {
+        console.error('Error fetching watchlist:', error);
+      }
+    );
   }
 
   placeOrder(): void {

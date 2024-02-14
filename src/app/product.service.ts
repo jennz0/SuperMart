@@ -6,6 +6,7 @@ import { Observable, of, tap } from 'rxjs';
 import { MessageService } from './message.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, map } from 'rxjs/operators';
+import { WatchlistAdd } from './watchlist/watchlistAdd';
 
 
 @Injectable({
@@ -61,7 +62,12 @@ export class ProductService {
     const headers = new HttpHeaders({
       'Authorization': 'Bearer ' + sessionStorage.getItem('token'), // Retrieve token from session storage
     });
-    console.log(of(this.http.get<Watchlist[]>(this.watchlistUrl, {headers})));
+    let product_ids: Watchlist[] = [];
+
+
+    this.http.get<Watchlist[]>(this.watchlistUrl, {headers}).subscribe(watchlist_returned_from_service => {product_ids = watchlist_returned_from_service});
+    console.log(product_ids);
+    // this.http.get<Watchlist[]>(this.watchlistUrl, {headers}).subscribe(watchlist_returned_from_service => {console.log(watchlist_returned_from_service)})
     return this.http.get<Watchlist[]>(this.watchlistUrl, { headers })
     .pipe(
       tap(_ => this.log('fetched products'+ _)), // Log success
@@ -69,12 +75,13 @@ export class ProductService {
     );
   }
 
-  addToWatchlist(product: Product): Observable<any> {
+  addToWatchlist(watchlistItem: WatchlistAdd): Observable<any> {
     // Assuming your backend API supports adding to watchlist
     const headers = new HttpHeaders({
       'Authorization': 'Bearer ' + sessionStorage.getItem('token'), // Retrieve token from session storage
     });
-    return this.http.post<any>(this.watchlistUrl, product);
+    console.log(watchlistItem);
+    return this.http.post<any>(this.watchlistUrl, watchlistItem, {headers});
   }
 
    /**

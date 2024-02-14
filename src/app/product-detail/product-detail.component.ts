@@ -4,6 +4,8 @@ import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { ProductService } from '../product.service';
 import { AuthService } from '../authentication.service';
+import { Watchlist } from '../watchlist/watchlist';
+import { WatchlistAdd } from '../watchlist/watchlistAdd';
 
 @Component({
   selector: 'app-product-detail',
@@ -17,6 +19,11 @@ export class ProductDetailComponent {
     private location: Location,
     private authService: AuthService) {};
     product?: Product;
+
+    newWatchlistItem: WatchlistAdd = {  // Initialize new product object
+      id: 0,
+      productId: 0,
+    };
     
     userIsAdmin: boolean = false;
 
@@ -43,5 +50,15 @@ export class ProductDetailComponent {
 
     goBack(): void {
       this.location.back();
+    }
+
+    addToWatchlist(): void {
+      if (this.newWatchlistItem) {
+        if (this.product) {
+          this.newWatchlistItem.productId = this.product.id;
+        }
+        this.productService.addToWatchlist(this.newWatchlistItem).subscribe();
+      }
+      
     }
 }

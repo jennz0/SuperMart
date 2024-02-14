@@ -9,6 +9,21 @@ import { json } from 'stream/consumers';
 export class AuthService {
   constructor(private http: HttpClient, private router: Router) {}
 
+  private currentUser: any;
+
+  getCurrentUser() {
+    const jwt = sessionStorage.getItem('token');
+    if (jwt) {
+      let jwtData = jwt.split('.')[1]
+      let decodedJwtJsonData = window.atob(jwtData)
+      let decodedJwtData = JSON.parse(decodedJwtJsonData)
+      this.currentUser = decodedJwtData;
+      console.log(this.currentUser);
+      return this.currentUser;
+    }
+    return null;
+  }
+
   login(username: string, password: string) {
     this.http.post<any>('http://localhost:8000/accounts/token/', { username, password })
       .subscribe(response => {
