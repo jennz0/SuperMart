@@ -29,11 +29,12 @@ export class ProductDetailComponent {
 
     checkAdmin(): void {
       this.userIsAdmin = this.authService.isAdministrator();
-      console.log(this.userIsAdmin);
+      console.log("isAdmin: "+this.userIsAdmin);
     }
 
     ngOnInit(): void {
       this.getHero();
+      this.checkAdmin();
     }
 
     ngOnChanges(): void {

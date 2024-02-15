@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Product} from '../products/products';
 import { ProductService } from '../product.service';
+import { AuthService } from '../authentication.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -10,14 +11,20 @@ import { ProductService } from '../product.service';
 export class DashboardComponent {
   products: Product[] = [];
 
-  constructor(private productService: ProductService) { }
+  constructor(private productService: ProductService,
+              private authService: AuthService) { }
 
   ngOnInit(): void {
     this.getHeroes();
   }
 
   getHeroes(): void {
-    this.productService.getProducts()
-      .subscribe(products => this.products = products.slice(1, 5));
+    if (this.authService.isAdministrator()) {
+      this.productService.popularProducts()
+      .subscribe(products => this.products = products);
+    } else {
+      this.productService.frequentProducts().subscribe(products => this.products = products);
+    }
+    
   }
 }

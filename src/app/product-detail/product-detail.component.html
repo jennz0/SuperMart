@@ -4,8 +4,8 @@
     <div><span>name: </span>{{product.name}}</div>
     <div><span>description: </span>{{product.description}}</div>
     <div><span>retail price: </span>{{product.retail_price}}</div>
-    <div *ngIf="userIsAdmin"><span>wholesale price: </span>{{product.wholesale_price}}</div>
-    <div *ngIf="userIsAdmin"><span>quantity: </span>{{product.quantity}}</div>
+    <div *ngIf="userIsAdmin == true"><span>wholesale price: </span>{{product.wholesale_price}}</div>
+    <div *ngIf="userIsAdmin == true"><span>quantity: </span>{{product.quantity}}</div>
     <label for="name">Product name: </label>
     <input id="name" [(ngModel)]="product.name" placeholder="name">
     
