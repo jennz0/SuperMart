@@ -1,0 +1,16 @@
+<h2>Order Detail</h2>
+
+<ul>
+  <li *ngFor="let item of orderItems">
+    <div>
+      <span>Product: </span>{{ item.product }}
+    </div>
+    <div>
+      <span>Quantity: </span>{{ item.quantity }}
+    </div>
+    <div>
+      <span>Purchased Price: </span>{{ item.purchased_price | currency }}
+    </div>
+    <!-- Add more details as needed -->
+  </li>
+</ul>

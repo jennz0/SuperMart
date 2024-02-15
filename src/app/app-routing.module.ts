@@ -6,6 +6,8 @@ import { ProductDetailComponent } from './product-detail/product-detail.componen
 import { RegistrationComponent } from './registration/registration.component';
 import { LoginComponent } from './login/login.component';
 import { WatchlistComponent } from './watchlist/watchlist.component';
+import { OrderComponent } from './order/order.component';
+import { OrderDetailComponent } from './order-detail/order-detail.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -14,7 +16,9 @@ const routes: Routes = [
   { path: 'products', component: ProductsComponent },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'detail/:id', component: ProductDetailComponent },
-  { path: 'watchlist', component: WatchlistComponent }
+  { path: 'watchlist', component: WatchlistComponent },
+  { path: 'order', component: OrderComponent },
+  { path: 'order-detail/:id', component: OrderDetailComponent }
 
   
 ];

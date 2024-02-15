@@ -1,0 +1,16 @@
+<h2>Orders</h2>
+
+<ul class="orders">
+  <a *ngFor="let order of orders" routerLink="/order-detail/{{order.id}}">
+    <div>
+      <span>Order ID: </span>{{ order.id }}
+    </div>
+    <div>
+      <span>Order Status: </span>{{ order.order_status }}
+    </div>
+    <div>
+      <span>Date Placed: </span>{{ order.date_placed | date }}
+    </div>
+    <!-- Add more details as needed -->
+    </a>
+</ul>

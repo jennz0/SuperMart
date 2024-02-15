@@ -12,6 +12,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { RegistrationComponent } from './registration/registration.component';
 import { LoginComponent } from './login/login.component';
 import { WatchlistComponent } from './watchlist/watchlist.component';
+import { OrderComponent } from './order/order.component';
+import { OrderDetailComponent } from './order-detail/order-detail.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,9 @@ import { WatchlistComponent } from './watchlist/watchlist.component';
     DashboardComponent,
     RegistrationComponent,
     LoginComponent,
-    WatchlistComponent
+    WatchlistComponent,
+    OrderComponent,
+    OrderDetailComponent
   ],
   imports: [
     BrowserModule,

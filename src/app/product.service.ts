@@ -7,6 +7,9 @@ import { MessageService } from './message.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, map } from 'rxjs/operators';
 import { WatchlistAdd } from './watchlist/watchlistAdd';
+import { Order } from './order/order';
+import { OrderItem } from './order-detail/order-detail';
+import { PlacedOrder } from './order/placedOrder';
 
 
 @Injectable({
@@ -20,6 +23,7 @@ export class ProductService {
 
   private productsUrl = 'http://localhost:8000/api/v2/products/';  // URL to web api
   private watchlistUrl = 'http://localhost:8000/api/v2/watchlist/products/';  // URL to web api
+  private ordersUrl = 'http://localhost:8000/api/v2/orders/';  // URL to web api
 
   getProduct(id: number): Observable<Product[]> {
     const headers = new HttpHeaders({
@@ -84,6 +88,49 @@ export class ProductService {
     return this.http.post<any>(this.watchlistUrl, watchlistItem, {headers});
   }
 
+  getOrders(): Observable<Order[]> {
+    const headers = new HttpHeaders({
+      'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+    });
+    return this.http.get<Order[]>(this.ordersUrl, { headers }).pipe(
+      tap(_ => this.log('fetched orders')),
+      catchError(this.handleError<Order[]>('getOrders', []))
+    );
+  }
+
+  getOrderItems(orderId: number): Observable<OrderItem[]> {
+    const headers = new HttpHeaders({
+      'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+    });
+    const url = `${this.ordersUrl}${orderId}/`;
+    return this.http.get<OrderItem[]>(url, { headers }).pipe(
+      tap(_ => this.log(`fetched order items for order id=${orderId}`)),
+      catchError(this.handleError<OrderItem[]>(`getOrderItems for order id=${orderId}`, []))
+    );
+  }
+
+
+  placeOrderFromWatchlist(placedOrder: PlacedOrder): Observable<any> {
+    const headers = new HttpHeaders({
+      'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+    });
+
+    return this.http.post<any>(this.ordersUrl, placedOrder, { headers }).pipe(
+      tap(_ => this.log('placed order from watchlist')),
+      catchError(this.handleError<any>('placeOrderFromWatchlist'))
+    );
+  }
+
+  clearWatchlist(): Observable<any> {
+    const headers = new HttpHeaders({
+      'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+    });
+
+    return this.http.delete<any>(this.watchlistUrl, { headers }).pipe(
+      tap(_ => this.log('cleared watchlist')),
+      catchError(this.handleError<any>('clearWatchlist'))
+    );
+  }
    /**
    * Handle Http operation that failed.
    * Let the app continue.
