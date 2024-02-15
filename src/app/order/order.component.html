@@ -1,16 +1,24 @@
 <h2>Orders</h2>
 
 <ul class="orders">
-  <a *ngFor="let order of orders" routerLink="/order-detail/{{order.id}}">
-    <div>
-      <span>Order ID: </span>{{ order.id }}
-    </div>
-    <div>
-      <span>Order Status: </span>{{ order.order_status }}
-    </div>
-    <div>
-      <span>Date Placed: </span>{{ order.date_placed | date }}
-    </div>
-    <!-- Add more details as needed -->
-    </a>
+    <li *ngFor="let order of orders">
+        <a routerLink="/order-detail/{{order.id}}">
+            <div>
+              <span>Order ID: </span>{{ order.id }}
+            </div>
+            <div>
+              <span>Order Status: </span>{{ order.order_status }}
+            </div>
+            <div>
+              <span>Date Placed: </span>{{ order.date_placed | date }}
+            </div>
+        </a>
+        <div class="button-container">
+            <button (click)="cancelOrder(order)">Cancel Order</button>
+            <button *ngIf="authService.isAdministrator()" (click)="completeOrder(order)">Complete Order</button>
+        </div>
+        
+    </li>
+  
+    
 </ul>

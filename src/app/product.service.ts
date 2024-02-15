@@ -131,6 +131,17 @@ export class ProductService {
       catchError(this.handleError<any>('clearWatchlist'))
     );
   }
+
+  cancelOrder(orderId: number): Observable<Order> {
+    const headers = new HttpHeaders({
+      'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+    });
+    const url = `${this.ordersUrl}${orderId}/cancel/`; // Assuming your API has a cancel endpoint
+    return this.http.patch<Order>(url, { headers }).pipe(
+      tap(_ => this.log('cleared watchlist')),
+      catchError(this.handleError<any>('clearWatchlist'))
+    );
+  }
    /**
    * Handle Http operation that failed.
    * Let the app continue.

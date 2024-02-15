@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Order } from './order';
 import { ProductService } from '../product.service';
+import { AuthService } from '../authentication.service';
 
 @Component({
   selector: 'app-order',
@@ -10,7 +11,8 @@ import { ProductService } from '../product.service';
 export class OrderComponent {
   orders: Order[] = [];
 
-  constructor(private productService: ProductService) { }
+  constructor(private productService: ProductService,
+              public authService : AuthService) { }
 
   ngOnInit(): void {
     this.getOrders();
@@ -26,6 +28,32 @@ export class OrderComponent {
         console.error('Error fetching orders:', error);
       }
     );
+  }
+
+  cancelOrder(order: Order): void {
+    order.order_status = 'Cancelled';
+    // this.productService.cancelOrder(order.id).subscribe(
+    //   updatedOrder => {
+    //     order.order_status = 'Cancelled';
+    //     console.log('Order Cancelled:', updatedOrder);
+    //   },
+    //   error => {
+    //     console.error('Error cancelling order:', error);
+    //   }
+    // );
+  }
+
+  completeOrder(order: Order): void {
+    order.order_status = 'Completed';
+    // this.productService.cancelOrder(order.id).subscribe(
+    //   updatedOrder => {
+    //     order.order_status = 'Cancelled';
+    //     console.log('Order Cancelled:', updatedOrder);
+    //   },
+    //   error => {
+    //     console.error('Error cancelling order:', error);
+    //   }
+    // );
   }
 
   // goToOrderDetail(): void {
