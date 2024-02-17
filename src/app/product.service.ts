@@ -164,6 +164,28 @@ export class ProductService {
       catchError(this.handleError<any>('fetch popular products'))
     );
   }
+
+  profitableProducts(): Observable<Product[]> {
+    const headers = new HttpHeaders({
+      'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+    });
+    const url = `http://localhost:8000/api/v2/products/profit`;
+    return this.http.get<Product[]>(url, { headers }).pipe(
+      tap(_ => this.log('fetch profit products')),
+      catchError(this.handleError<any>('fetch popular products'))
+    );
+  }
+
+  recentProducts(): Observable<Product[]> {
+    const headers = new HttpHeaders({
+      'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+    });
+    const url = `http://localhost:8000/api/v2/products/recent`;
+    return this.http.get<Product[]>(url, { headers }).pipe(
+      tap(_ => this.log('fetch recent products')),
+      catchError(this.handleError<any>('fetch popular products'))
+    );
+  }  
    /**
    * Handle Http operation that failed.
    * Let the app continue.

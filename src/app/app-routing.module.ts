@@ -10,7 +10,7 @@ import { OrderComponent } from './order/order.component';
 import { OrderDetailComponent } from './order-detail/order-detail.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: '', redirectTo: '/signup', pathMatch: 'full' },
   { path: 'signup', component: RegistrationComponent },
   { path: 'login', component: LoginComponent },
   { path: 'products', component: ProductsComponent },

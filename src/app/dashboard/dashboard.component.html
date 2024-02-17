@@ -1,6 +1,17 @@
-<h2>Top Products</h2>
+<h2 *ngIf="authService.isAdministrator()">Most Popular Products</h2>
+<h2 *ngIf="!authService.isAdministrator()">Most Frequently Bought Products</h2>
+
 <div class="products-menu">
   <a *ngFor="let product of products" routerLink="/detail/{{product.id}}">
+    {{product.name}}
+  </a>
+</div>
+
+<h2 *ngIf="authService.isAdministrator()">Most Profitable Products</h2>
+<h2 *ngIf="!authService.isAdministrator()">Most Recently Bought Products</h2>
+
+<div class="products-menu">
+  <a *ngFor="let product of products_1" routerLink="/detail/{{product.id}}">
     {{product.name}}
   </a>
 </div>

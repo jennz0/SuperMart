@@ -10,9 +10,10 @@ import { AuthService } from '../authentication.service';
 })
 export class DashboardComponent {
   products: Product[] = [];
+  products_1: Product[] = [];
 
   constructor(private productService: ProductService,
-              private authService: AuthService) { }
+              public authService: AuthService) { }
 
   ngOnInit(): void {
     this.getHeroes();
@@ -22,8 +23,11 @@ export class DashboardComponent {
     if (this.authService.isAdministrator()) {
       this.productService.popularProducts()
       .subscribe(products => this.products = products);
+      this.productService.profitableProducts()
+      .subscribe(products_1 => this.products_1 = products_1);
     } else {
       this.productService.frequentProducts().subscribe(products => this.products = products);
+      this.productService.recentProducts().subscribe(products_1 => this.products_1 = products_1);
     }
     
   }
